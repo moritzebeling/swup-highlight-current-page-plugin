@@ -64,3 +64,14 @@ const swup = new Swup({
   })]
 });
 ```
+
+Add CSS to actually make the highlighting visible:
+
+```css
+a[aria-current="page"] {
+  text-decoration: underline;
+  text-decoration-thickness: 0.1em;
+  text-underline-offset: 0.1em;
+  cursor: inherit;
+}
+```
