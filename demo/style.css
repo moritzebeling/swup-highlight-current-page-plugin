@@ -1,0 +1,7 @@
+a {
+    text-decoration: none;
+}
+
+a[aria-page="current"] {
+    text-decoration: underline;
+}
