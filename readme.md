@@ -52,3 +52,15 @@ const swup = new Swup({
   plugins: [new SwupHighlightCurrentPagePlugin()]
 });
 ```
+
+Plugin options:
+
+```javascript
+const swup = new Swup({
+  plugins: [new SwupHighlightCurrentPagePlugin({
+    selector: 'a',
+    className: 'current',
+    ariaCurrent: 'page',
+  })]
+});
+```

@@ -3,31 +3,40 @@ import Plugin from '@swup/plugin';
 export default class SwupHighlightCurrentPagePlugin extends Plugin {
 	name = 'SwupHighlightCurrentPagePlugin';
 
-	constructor() {
+	constructor( options = {} ) {
 		super();
-		/**
-		 * Exectuted each time an instance of this plugin is created.
-		 * Can be used for things that don't rely on access to the swup instance.
-		 */
+
+		this.selector = options.selector || 'a';
+		this.className = options.className || 'current';
+		this.ariaCurrent = options.ariaCurrent || 'page';
+	}
+
+	highlight() {
+
+		const currentPath = window.location.pathname;
+		const anchors = document.querySelectorAll( this.selector );
+
+		for (const a of anchors) {
+
+			let href = new URL( a.href );
+			if( !href ){ continue }
+
+			if( currentPath == href.pathname ){
+				a.classList.add( this.className );
+				a.ariaCurrent = this.ariaCurrent;
+			} else {
+				a.classList.remove( this.className );
+				a.ariaCurrent = false;
+			}
+
+		}
 	}
 
 	mount() {
-		/**
-		 * Executed when swup is initialized with this plugin.
-		 * You can use this.swup here to access the swup instance.
-		 *
-		 * example: this.swup.on('clickLink', this.handleLinkClick)
-		 */
+		this.swup.on('contentReplaced', this.highlight);
 	}
 
 	unmount() {
-		/**
-		 * Executed when a swup instance with this plugin is disabled.
-		 * You can use this.swup here to access the swup instance.
-		 * Make sure to undo any changes your plugin might have applied to the
-		 * swup instance and remove event listeners here.
-		 *
-		 * example: this.swup.off('clickLink', this.handleLinkClick)
-		 */
+		this.swup.off('contentReplaced', this.highlight);
 	}
 }

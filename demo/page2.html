@@ -8,12 +8,13 @@
         <meta name="author" content="https://moritzebeling.com">
         <link rel="stylesheet" href="/demo/style.css">
         <script src="https://unpkg.com/swup@3"></script>
+        <script src="/dist/index.umd.js"></script>
     </head>
     <body>
         <nav>
             <a href="/demo/index.html">Home</a>
             <a href="/demo/page1.html">Page 1</a>
-            <a href="/demo/page2.html" aria-page="current">Page 2</a>
+            <a href="/demo/page2.html" aria-current="page">Page 2</a>
             <a href="/demo/page3.html">Page 3</a>
         </nav>
         <main id="swup" class="transition-fade">
@@ -30,7 +31,9 @@
             </p>
         </main>
         <script>
-            const swup = new Swup();
+            const swup = new Swup({
+                plugins: [new SwupHighlightCurrentPagePlugin()]
+            });
         </script>
     </body>
 </html>
